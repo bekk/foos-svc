@@ -38,7 +38,12 @@ namespace foos_svc
                 app.UseDeveloperExceptionPage();
             }
 
+            Database.Migrate(Configuration["ConnectionStrings:FoosDB"]);
             app.UseMvc();
+
+
+
+
         }
     }
 }
