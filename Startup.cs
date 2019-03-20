@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Dapper;
+using System.Data.SqlClient;
 
 
 namespace foos_svc
@@ -28,6 +30,8 @@ namespace foos_svc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient(s => new SqlConnection(Configuration["ConnectionStrings:FoosDB"]));
+            services.AddTransient<PlayersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,23 +7,23 @@ using System.Data.SqlClient;
 
 namespace foos_svc
 {
-    public class MatchRespository
+    public class MatchesRespository
     {
         private SqlConnection dbConnection;
 
-        public MatchRespository(SqlConnection sqlConnection)
+        public MatchesRespository(SqlConnection sqlConnection)
         {
             dbConnection = sqlConnection;
         }
 
-        public IEnumerable<Match> GetMatches()
+        public IEnumerable<Matches> GetMatches()
         {
             string sql = "SELECT * from Match";
-            IEnumerable<Match> queryResult = dbConnection.Query<Match>(sql);
+            IEnumerable<Matches> queryResult = dbConnection.Query<Matches>(sql);
             return queryResult;
         }
 
-        public bool Add(Match match)
+        public bool Add(Matches match)
         {
             try
             {

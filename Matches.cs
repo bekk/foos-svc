@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace foos_svc
 {
-    public class Match
+    public class Matches
     {
         public string Name { get; set; }
         public int MatchId { get; set; }
