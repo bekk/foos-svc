@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace foos_svc
 {
-    public class Player
+    public class Players
     {
         public string Name { get; set; }
         public int EmployeeId { get; set; }

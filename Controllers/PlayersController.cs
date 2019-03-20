@@ -25,14 +25,14 @@ namespace foos_svc.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            IEnumerable<Player> players = _playersRepository.GetAll();
+            IEnumerable<Players> players = _playersRepository.GetAll();
             return Ok(players);
         }
 
 
         // POST api/values
         [HttpPost]
-            public ActionResult<IEnumerable<string>> Post(Player player)
+            public ActionResult<IEnumerable<string>> Post(Players player)
         {
             if (!ModelState.IsValid)
             {
@@ -49,7 +49,7 @@ namespace foos_svc.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult<IEnumerable<string>> Put(int id, Player player)
+        public ActionResult<IEnumerable<string>> Put(int id, Players player)
         {
             if (!ModelState.IsValid)
             {

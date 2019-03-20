@@ -16,21 +16,22 @@ namespace foos_svc
             dbConnection = sqlConnection;
         }
 
-        public IEnumerable<Player> GetAll()
+        public IEnumerable<Players> GetAll()
         {
-            string sql = "SELECT * FROM Player";
-            IEnumerable<Player> queryResult = dbConnection.Query<Player>(sql);
+            string sql = "SELECT * FROM Players";
+            var t = dbConnection.Query<Players>(sql);
+            IEnumerable<Players> queryResult = dbConnection.Query<Players>(sql);
             return queryResult;
 
         }
 
-        public bool Add(Player player)
+        public bool Add(Players player)
         {
             try
             {
-                string sql = "INSERT INTO Player(Name) values(@Name); SELECT CAST(SCOPE_IDENTITY() as int)";
-                var returnId = dbConnection.Query<int>(sql, player).SingleOrDefault();
-                player.EmployeeId = returnId;
+                string sql = "INSERT INTO Players(Name) values(@Name); SELECT CAST(SCOPE_IDENTITY() as int)";
+                var returnId = dbConnection.Query<string>(sql, player).SingleOrDefault();
+                player.EmployeeId = 1;
             }
             catch(Exception ex)
             {
@@ -39,7 +40,7 @@ namespace foos_svc
             return true;
         }
 
-        public bool Update(Player player)
+        public bool Update(Players player)
         {
             string sql = "UPDATE Player SET Name = @Name WHERE EmployeeId = @EmployeeId";
             var count = dbConnection.Execute(sql, player);
