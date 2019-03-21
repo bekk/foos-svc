@@ -11,36 +11,37 @@ namespace foos_svc.Controllers
     [ApiController]
     public class ScoresController : ControllerBase
     {
-        // GET: api/Scores
+
+        private ScoresRepository _scoresRepository;
+        public ScoresController(ScoresRepository scoresRepository)
+        {
+            _scoresRepository = scoresRepository;
+        }
+
+        // GET: api/Match
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            IEnumerable<Scores> scores = _scoresRepository.GetScores();
+            return Ok(scores);
         }
 
-        // GET: api/Scores/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Scores
+        // POST: api/Match
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<IEnumerable<string>> Post(Scores score)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (true == _scoresRepository.Add(score))
+            {
+                return Ok(score);
+            }
+            return BadRequest();
+
         }
 
-        // PUT: api/Scores/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

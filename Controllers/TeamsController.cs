@@ -11,36 +11,38 @@ namespace foos_svc.Controllers
     [ApiController]
     public class TeamsController : ControllerBase
     {
-        // GET: api/Teams
+
+
+        private TeamsRepository _teamsRepository;
+        public TeamsController(TeamsRepository teamsRepository)
+        {
+            _teamsRepository = teamsRepository;
+        }
+
+        // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            IEnumerable<Teams> teams = _teamsRepository.GetTeams();
+            return Ok(teams);
         }
 
-        // GET: api/Teams/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST: api/Teams
+        // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<IEnumerable<string>> Post(Teams team)
         {
-        }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        // PUT: api/Teams/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            if (true == _teamsRepository.Add(team))
+            {
+                return Ok(team);
+            }
+            return BadRequest();
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

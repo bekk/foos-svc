@@ -10,7 +10,6 @@ namespace foos_svc
     public class MatchesRespository
     {
         private SqlConnection dbConnection;
-
         public MatchesRespository(SqlConnection sqlConnection)
         {
             dbConnection = sqlConnection;
@@ -27,9 +26,9 @@ namespace foos_svc
         {
             try
             {
-                string sql = "INSERT INTO Matches(MatchId, Name, IsWhite) values(@MatchId, @Name, @IsWhite); SELECT CAST(SCOPE_IDENTITY() as int)";
-                var returnId = dbConnection.Query<string>(sql, match).SingleOrDefault();
-                //match.MatchId = 1;
+                string sql = "INSERT INTO Matches(MatchId) values(@MatchId); SELECT CAST(SCOPE_IDENTITY() as int)";
+                var returnId = dbConnection.Query<int>(sql, match).SingleOrDefault();
+                //match.MatchId = returnId;
             }
             catch(Exception ex)
             {

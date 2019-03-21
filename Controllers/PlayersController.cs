@@ -43,26 +43,6 @@ namespace foos_svc.Controllers
             return BadRequest();
 
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public ActionResult<IEnumerable<string>> Put(int id, Players player)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            player.EmployeeId = id;
-            var result = _playersRepository.Update(player);
-
-            if (result == true)
-            {
-                return Ok(player);
-            }
-            return NotFound();
-
-        }
-
+    
     }
 }

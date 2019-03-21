@@ -7,8 +7,7 @@
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Matches' and xtype='U')
 	CREATE TABLE [dbo].[Matches](
-		[MatchId] [int] PRIMARY KEY,
-		[Date] [smalldatetime] NOT NULL,
+		[MatchId] [int] PRIMARY KEY
 	) ON [PRIMARY]
 
 
@@ -26,7 +25,7 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Teams' and xtype='U')
 
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Scores' and xtype='U')
-	CREATE TABLE [dbo].Teams(
+	CREATE TABLE [dbo].Scores(
 		[MatchId] [int]  NOT NULL,
 		[Score] [int] NOT NULL,
 		[IsWhite] [bit] NOT NULL,

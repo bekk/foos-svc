@@ -10,7 +10,6 @@ namespace foos_svc
     public class PlayersRepository 
     {
         private SqlConnection dbConnection;
-
         public PlayersRepository(SqlConnection sqlConnection)
         {
             dbConnection = sqlConnection;
@@ -21,7 +20,6 @@ namespace foos_svc
             string sql = "SELECT * FROM Players";
             IEnumerable<Players> queryResult = dbConnection.Query<Players>(sql);
             return queryResult;
-
         }
 
         public bool Add(Players player)
@@ -30,20 +28,12 @@ namespace foos_svc
             {
                 string sql = "INSERT INTO Players(Name, EmployeeId) values(@Name, @EmployeeId); SELECT CAST(SCOPE_IDENTITY() as int)";
                 var returnId = dbConnection.Query<string>(sql, player).SingleOrDefault();
-                //player.EmployeeId = 1;
             }
             catch(Exception ex)
             {
                 return false;
             }
             return true;
-        }
-
-        public bool Update(Players player)
-        {
-            string sql = "UPDATE Player SET Name = @Name WHERE EmployeeId = @EmployeeId";
-            var count = dbConnection.Execute(sql, player);
-            return count > 0;
         }
     }
 }

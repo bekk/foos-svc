@@ -27,9 +27,9 @@ namespace foos_svc
         {
             try
             {
-                string sql = "INSERT INTO Scores(Score) values(@Score); SELECT CAST(SCOPE_IDENTITY() as int)";
+                string sql = "INSERT INTO Scores(MatchId, IsWhite, Score) values(@MatchId, @IsWhite, @Score); SELECT CAST(SCOPE_IDENTITY() as int)";
                 var returnId = dbConnection.Query<int>(sql, score).SingleOrDefault();
-                score.MatchId = returnId;
+                //score.MatchId = returnId;
             }
             catch (Exception ex)
             {
