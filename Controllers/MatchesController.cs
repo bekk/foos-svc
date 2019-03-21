@@ -11,49 +11,38 @@ namespace foos_svc.Controllers
     [ApiController]
     public class MatchesController : ControllerBase
     {
-
         private MatchesRespository _matchesRepository;
-
         public MatchesController(MatchesRespository matchesRepository)
         {
             _matchesRepository = matchesRepository;
         }
 
 
-
-
-
-
         // GET: api/Match
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            IEnumerable<Matches> matches = _matchesRepository.GetMatches();
+            return Ok(matches);
         }
 
-        // GET: api/Match/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST: api/Match
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<IEnumerable<string>> Post(Matches match)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (true == _matchesRepository.Add(match))
+            {
+                return Ok(match);
+            }
+            return BadRequest();
+
         }
 
-        // PUT: api/Match/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

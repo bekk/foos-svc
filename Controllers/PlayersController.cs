@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Dapper;
-using System.Data.SqlClient;
-
 
 namespace foos_svc.Controllers
 {
@@ -13,13 +11,12 @@ namespace foos_svc.Controllers
     [ApiController]
     public class PlayersController : ControllerBase
     {
-
         private PlayersRepository _playersRepository;
-
         public PlayersController(PlayersRepository playersRepository)
         {
            _playersRepository = playersRepository;
         }
+
 
         // GET api/values
         [HttpGet]

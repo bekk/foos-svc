@@ -18,7 +18,7 @@ namespace foos_svc
 
         public IEnumerable<Matches> GetMatches()
         {
-            string sql = "SELECT * from Match";
+            string sql = "SELECT * from Matches";
             IEnumerable<Matches> queryResult = dbConnection.Query<Matches>(sql);
             return queryResult;
         }
@@ -27,9 +27,9 @@ namespace foos_svc
         {
             try
             {
-                string sql = "INSERT INTO Match(Name, IsWhite) values(@Name, @IsWhite); SELECT CAST(SCOPE_IDENTITY() as int)";
-                var returnId = dbConnection.Query<int>(sql, match).SingleOrDefault();
-                match.MatchId = returnId;
+                string sql = "INSERT INTO Matches(MatchId, Name, IsWhite) values(@MatchId, @Name, @IsWhite); SELECT CAST(SCOPE_IDENTITY() as int)";
+                var returnId = dbConnection.Query<string>(sql, match).SingleOrDefault();
+                //match.MatchId = 1;
             }
             catch(Exception ex)
             {

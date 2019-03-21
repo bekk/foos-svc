@@ -19,7 +19,6 @@ namespace foos_svc
         public IEnumerable<Players> GetAll()
         {
             string sql = "SELECT * FROM Players";
-            var t = dbConnection.Query<Players>(sql);
             IEnumerable<Players> queryResult = dbConnection.Query<Players>(sql);
             return queryResult;
 
@@ -29,9 +28,9 @@ namespace foos_svc
         {
             try
             {
-                string sql = "INSERT INTO Players(Name) values(@Name); SELECT CAST(SCOPE_IDENTITY() as int)";
+                string sql = "INSERT INTO Players(Name, EmployeeId) values(@Name, @EmployeeId); SELECT CAST(SCOPE_IDENTITY() as int)";
                 var returnId = dbConnection.Query<string>(sql, player).SingleOrDefault();
-                player.EmployeeId = 1;
+                //player.EmployeeId = 1;
             }
             catch(Exception ex)
             {
