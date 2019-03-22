@@ -29,20 +29,15 @@ namespace foos_svc.Controllers
 
         // POST: api/Match
         [HttpPost]
-        public ActionResult<IEnumerable<string>> Post(Matches match)
+        public ActionResult<int> Post()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (true == _matchesRepository.Add(match))
-            {
-                return Ok(match);
-            }
-            return BadRequest();
-
+            var matchId = _matchesRepository.Add();
+            return Ok(matchId);
         }
-
     }
 }

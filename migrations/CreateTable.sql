@@ -7,7 +7,7 @@
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Matches' and xtype='U')
 	CREATE TABLE [dbo].[Matches](
-		[MatchId] [int] PRIMARY KEY
+		[MatchId] [int] IDENTITY (1, 1) PRIMARY KEY
 	) ON [PRIMARY]
 
 

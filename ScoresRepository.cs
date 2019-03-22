@@ -23,21 +23,22 @@ namespace foos_svc
             return queryResult;
         }
 
-        public bool Add(Scores score)
+        public Scores Add(Scores score)
         {
-            try
-            {
-                string sql = "INSERT INTO Scores(MatchId, IsWhite, Score) values(@MatchId, @IsWhite, @Score); SELECT CAST(SCOPE_IDENTITY() as int)";
-                var returnId = dbConnection.Query<int>(sql, score).SingleOrDefault();
-                //score.MatchId = returnId;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-            return true;
+                string sql = "INSERT INTO Scores(MatchId, IsWhite, Score) values(@MatchId, @IsWhite, @Score); SELECT * FROM Scores WHERE MatchId = @MatchId AND IsWhite = @IsWhite";
+                return dbConnection.Query<Scores>(sql, score).SingleOrDefault();
         }
 
+        public IEnumerable<Scores> Add(IEnumerable<Scores> scores)
+        {
+            var scoresList = new List<Scores>();
+            foreach (var score in scores)
+            {
+                var newScore = Add(score);
+                scoresList.Add(newScore);
+            }
+            return scoresList;
+        }
 
     }
 }

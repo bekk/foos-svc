@@ -35,12 +35,8 @@ namespace foos_svc.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (true == _scoresRepository.Add(score))
-            {
-                return Ok(score);
-            }
-            return BadRequest();
-
+            var scoreR = _scoresRepository.Add(score);
+            return Ok(scoreR);
         }
 
     }

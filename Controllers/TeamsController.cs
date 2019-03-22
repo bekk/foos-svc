@@ -37,12 +37,8 @@ namespace foos_svc.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (true == _teamsRepository.Add(team))
-            {
-                return Ok(team);
-            }
-            return BadRequest();
-
+            var teamR = _teamsRepository.Add(team);
+            return Ok(teamR);
         }
     }
 }

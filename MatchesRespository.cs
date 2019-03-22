@@ -22,19 +22,11 @@ namespace foos_svc
             return queryResult;
         }
 
-        public bool Add(Matches match)
+        public int Add()
         {
-            try
-            {
-                string sql = "INSERT INTO Matches(MatchId) values(@MatchId); SELECT CAST(SCOPE_IDENTITY() as int)";
-                var returnId = dbConnection.Query<int>(sql, match).SingleOrDefault();
-                //match.MatchId = returnId;
-            }
-            catch(Exception ex)
-            {
-                return false;
-            }
-            return true;
+            string sql = "INSERT INTO Matches DEFAULT VALUES; SELECT CAST(SCOPE_IDENTITY() as int)";
+            var returnId = dbConnection.Query<int>(sql).SingleOrDefault();
+            return returnId;
         }
     }
 }

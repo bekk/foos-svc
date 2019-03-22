@@ -21,6 +21,30 @@ namespace foos_svc
 
 
             /*
+            {
+               "WhiteTeam" : {
+               "Players" : 
+                {
+                "Name" : "Nr En!",
+                "Name" : "Nr To"
+                }
+               "Score" : "10"
+            },
+
+               "BlueTeam" : {
+                "Players" : 
+                {
+                "Name" : "Nr Tre",
+                "Name" : "Nr Fire"
+                }
+               "Score" : "2"
+
+            }
+            
+            }
+
+
+        
             var playersRepository = new PlayersRepository(new SqlConnection("Server=localhost,1433;User=sa;Password=M1nj0bB9;Database=foos-db;"));
             Players player1 = new Players
             {
@@ -78,7 +102,7 @@ namespace foos_svc
             teamsRepository.Add(team1);
             teamsRepository.Add(team2);
             IEnumerable<Teams> teams = teamsRepository.GetTeams();
-            */
+           
 
             var scoresRepository = new ScoresRepository(new SqlConnection("Server=localhost,1433;User=sa;Password=M1nj0bB9;Database=foos-db;"));
             Scores score1 = new Scores
@@ -96,6 +120,7 @@ namespace foos_svc
             scoresRepository.Add(score1);
             scoresRepository.Add(score2);
             IEnumerable<Scores> scores = scoresRepository.GetScores();
+             */
 
             CreateWebHostBuilder(args).Build().Run();
         }
