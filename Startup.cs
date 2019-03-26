@@ -29,12 +29,17 @@ namespace foos_svc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+             options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient(s => new SqlConnection(Configuration["ConnectionStrings:FoosDB"]));
             services.AddTransient<PlayersRepository>();
             services.AddTransient<MatchesRespository>();
             services.AddTransient<ScoresRepository>();
             services.AddTransient<TeamsRepository>();
+            services.AddTransient<ResultsRepository>();
 
 
         }
@@ -48,8 +53,11 @@ namespace foos_svc
             }
 
             Database.Migrate(Configuration["ConnectionStrings:FoosDB"]);
-            app.UseMvc();
 
+
+            app.UseCors("AllowAll");
+
+            app.UseMvc();
 
 
 

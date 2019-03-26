@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 
 namespace foos_svc
 {
-    public class Matches
+    public class CompleteDataModel
     {
         public int MatchId { get; set; }
         public DateTime Date { get; set; }
+        public String Name { get; set; }
+        public bool IsWhite { get; set; }
+        public int Score { get; set; }
     }
 }

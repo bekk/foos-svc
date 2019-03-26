@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace foos_svc
+namespace foos_svc.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,16 +15,27 @@ namespace foos_svc
         private ScoresRepository _scoresRepository;
         private MatchesRespository _matchesRespository;
         private TeamsRepository _teamsRepository;
+        private ResultsRepository _resultsRepository;
         
-        public ResultController(ScoresRepository scoresRepository, MatchesRespository matchesRespository, TeamsRepository teamsRepository)
+        public ResultController(ScoresRepository scoresRepository, MatchesRespository matchesRespository, TeamsRepository teamsRepository, ResultsRepository resultsRepository)
         {
             _scoresRepository = scoresRepository;
             _matchesRespository = matchesRespository;
             _teamsRepository = teamsRepository;
+            _resultsRepository = resultsRepository;
         }
 
+
+        [HttpGet]
+        public ActionResult<IEnumerable<CompleteDataModel>> GetResults()
+        {
+            IEnumerable<CompleteDataModel> matches = _resultsRepository.GetResults();
+            return Ok(matches);
+        }
+
+
         [HttpPost]
-        public ActionResult<IEnumerable<string>> Post(ResultWriteModel resultWriteModel)
+        public ActionResult<IEnumerable<string>> Post([FromBody] ResultWriteModel resultWriteModel)
         {
 
             if (!ModelState.IsValid)
